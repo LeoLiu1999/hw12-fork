@@ -18,14 +18,19 @@ int main(){
     is_parent = fork();
   }
   
-  if ( is_parent ) {
+  if ( is_parent ) { //parent
     printf("%d: Yo dawg I'm a parent.\n", getpid());
+    int status;
+    wait(&status);
+    printf("My kid woke me up after %d seconds.\n",WEXITSTATUS(status));
+    
   }
-  else {
+  else { //child
     printf("%d: Hai, I'm a child!\n", getpid());
     printf("%d: Going for a %d sec nap zzz\n", getpid(), rando);
     sleep(rando);
     printf("%d: I'm up!\n", getpid());
+    return rando;
   }
 
   
